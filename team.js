@@ -43,15 +43,15 @@ function getValue(id) {
 function drawDOM() {
     let teamDiv = document.getElementById('teams');
     clearElement(teamDiv);
-    for (team of teams) {
+    for (let team of teams) {
         let table = createTeamTable(team);
         let title = document.createElement('h2');
         title.innerHTML = team.name;
         title.appendChild(createDeleteTeamButton(team));
         teamDiv.appendChild(title);
         teamDiv.appendChild(table);
-        for(member of team.members) {
-            createMemberRow(team, table, member);
+        for(let member of team.members) {
+            createMemberRow(team, table, member); 
         }
     }
 }
@@ -64,11 +64,12 @@ function createMemberRow(team, table, member) {
     actions.appendChild(createDeleteTeamButton(team, member));
 }
 
-function createDeleteTeamButton(team, member) {
+function createDeleteRowButton(team, member) {
+    console.log('Delete Row Clicked');
     let btn = document.createElement('button');
     btn.className = 'btn btn-primary';
     btn.innerHTML = 'Delete';
-    btn.oneClick = () => {
+    btn.onClick = () => {
         let index = team.members.indexOf(member);
         team.members.splice(index, 1);
         drawDOM();
@@ -80,7 +81,8 @@ function createDeleteTeamButton(team) {
     let btn = document.createElement('button');
     btn.className = 'btn btn-primary';
     btn.innerHTML = 'Delete Team';
-    btn.oneClick = () => {
+    btn.onClick = () => {
+        console.log('Delete Team Clicked');
         let index = teams.indexOf(team);
         teams.splice(index, 1);
         drawDOM();
@@ -91,9 +93,9 @@ function createDeleteTeamButton(team) {
 function createNewMemberButton(team) {
     let btn = document.createElement('button');
     btn.className = 'btn btn-primary';
-    btn.innetHTML = 'Create';
-    btn.oneClick = () => {
-        team.members. push(new Member(getValue(`name-input-${team.id}`), getValue(`position-input-${team.id}`)));
+    btn.innerHTML = 'Create';
+    btn.onClick = () => {
+        team.members.push(new Member(getValue(`name-input-${team.id}`), getValue(`position-input-${team.id}`)));
         drawDOM();
     };
     return btn;
@@ -121,7 +123,7 @@ function createTeamTable(team) {
     positionInput.setAttribute('id', `position-input-${team.id}`);
     positionInput.setAttribute('type', 'text');
     positionInput.setAttribute('class', 'form-control');
-    let newMemberButton = newMemberButton(team);
+    let newMemberButton = createNewMemberButton(team);
     nameTh.appendChild(nameInput);
     positionTh.appendChild(positionInput);
     createTh.appendChild(newMemberButton);
