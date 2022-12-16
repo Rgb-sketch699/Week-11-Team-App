@@ -25,12 +25,12 @@ class Team {
 let teams = [];
 let teamId = 0;
 
-onClick('new-team', () => {
+onclick('new-team', () => {
     teams.push(new Team(teamId++, getValue('new-team-name')));
     drawDOM();
 });
 
-function onClick(id, action) {
+function onclick(id, action) {
     let element = document.getElementById(id);
     element.addEventListener('click', action);
     return element;
@@ -69,7 +69,7 @@ function createDeleteRowButton(team, member) {
     let btn = document.createElement('button');
     btn.className = 'btn btn-primary';
     btn.innerHTML = 'Delete';
-    btn.onClick = () => {
+    btn.onclick = () => {
         let index = team.members.indexOf(member);
         team.members.splice(index, 1);
         drawDOM();
@@ -81,7 +81,7 @@ function createDeleteTeamButton(team) {
     let btn = document.createElement('button');
     btn.className = 'btn btn-primary';
     btn.innerHTML = 'Delete Team';
-    btn.onClick = () => {
+    btn.onclick = () => {
         console.log('Delete Team Clicked');
         let index = teams.indexOf(team);
         teams.splice(index, 1);
@@ -94,7 +94,7 @@ function createNewMemberButton(team) {
     let btn = document.createElement('button');
     btn.className = 'btn btn-primary';
     btn.innerHTML = 'Create';
-    btn.onClick = () => {
+    btn.onclick = () => {
         team.members.push(new Member(getValue(`name-input-${team.id}`), getValue(`position-input-${team.id}`)));
         drawDOM();
     };
